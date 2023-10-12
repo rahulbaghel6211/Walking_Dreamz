@@ -5,14 +5,22 @@ const ProductDetailScreen = ({ route }) => {
   const { product } = route.params;
 
   return (
-    <View style={{justifyContent:'center',alignItems:'center',marginTop:20}}>
+    <View style={{marginTop:20}}>
+      <View style={{justifyContent:'center',alignItems:'center'}}>
       <Image source={{ uri: product.thumbnail }} style={styles.productImage} />
-      <Text>Name: {product.title}</Text>
-      <Text>Description: {product.description}</Text>
-      <Text>Price: ${product.price}</Text>
-      <Text>Brand: {product.brand}</Text>
-      <Text>Category:{product.category}</Text>
-      <Text>Rating:{product.rating}</Text>
+      </View>
+      <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:20,marginTop:10}}>
+      <View>
+      <Text style={{fontSize:18,fontWeight:'800',color:'#4c1d95'}}>{product.title}</Text>
+      <Text>{product.brand}</Text>
+      </View>
+      <View>
+      <Text style={{color:'black'}}>⭐{product.rating}</Text>
+      </View>
+      </View>
+      <Text style={{fontSize:18,color:'black',marginLeft:20,marginTop:10}}>Price: ${product.price}</Text>
+      <Text style={{fontSize:18,color:'black',marginLeft:20,marginTop:10}}>Description: </Text>
+      <Text style={{marginLeft:20,marginTop:10,marginRight:10}}>{product.description}</Text>
     </View>
   );
 };
@@ -33,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productImage: {
-    width: 300,
+    width:"90%",
     height:200,
     borderRadius:10
   },

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { BASE_URL } from "../config";
-import axios from 'axios';
+import Toast from "react-native-toast-message";
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -26,16 +26,23 @@ const LoginScreen = ({ navigation }) => {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Email or password is incorrect');
             }
             return response.json();
         })
         .then(data => {
+            Toast.show({
+                type: "success",
+                position: "top",
+                text1: `Welcome, ${data.username}`,
+                text2: "You have successfully logged in.",
+              });
             console.log(data);
             navigation.navigate('Home', { user: data });
         })
         .catch(error => {
-            console.error('Fetch error:', error);
+            setError(error.message); // Set the error message for display
+            //console.error('Fetch error:', error);
         });
     }
 
@@ -69,7 +76,6 @@ const LoginScreen = ({ navigation }) => {
         </View>
     )
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

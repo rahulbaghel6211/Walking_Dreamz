@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import Toast from 'react-native-toast-message';
 
-const PostManagementScreen= () => {
+const PostManagementScreen = ({navigation}) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
+  const [error, setError] = useState(null);
 
   const handlePostData = () => {
+    // Validate the input fields
+    if (!title || !image || !description) {
+      setError('Please fill in all fields');
+      return;
+    }
+
     // Create a product data object
     const productData = {
       title: title,
@@ -23,11 +31,19 @@ const PostManagementScreen= () => {
       .then((res) => res.json())
       .then((responseData) => {
         console.log('Response from server:', responseData);
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Success',
+          text2: 'Data posted successfully.',
+        });
         // Handle the response data as needed
+        setError(null); // Clear any previous error
       })
       .catch((error) => {
         console.error('Error:', error);
         // Handle any errors that occur during the request
+        setError('An error occurred while posting data');
       });
   };
 
@@ -55,6 +71,8 @@ const PostManagementScreen= () => {
         multiline
       />
 
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
       <Button title="Submit" onPress={handlePostData} />
     </View>
   );
@@ -76,8 +94,10 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 16,
   },
+  errorText: {
+    color: 'red',
+    marginBottom: 16,
+  },
 });
-
-
 
 export default PostManagementScreen;

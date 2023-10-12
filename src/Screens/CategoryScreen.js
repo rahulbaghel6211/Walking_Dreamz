@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image ,TouchableOpacity,StyleSheet} from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 const CategoryScreen = ({ navigation }) => {
@@ -49,39 +49,40 @@ const CategoryScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Text style={{marginLeft:10,fontSize:18,fontWeight:'800'}}>Select a Category:</Text>
+      <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: '800' }}>Select a Category:</Text>
       <View style={styles.pickerItem}>
-      <Picker selectedValue={selectedCategory} onValueChange={handleCategoryChange}>
-        {categories.map((category, index) => (
-          <Picker.Item key={index} label={category} value={category} />
-        ))}
-      </Picker>
+        <Picker selectedValue={selectedCategory} onValueChange={handleCategoryChange}>
+          {categories.map((category, index) => (
+            <Picker.Item key={index} label={category} value={category} />
+          ))}
+        </Picker>
       </View>
 
       {loading ? (
         <Text>Loading...</Text>
       ) : showProducts ? (
-        <View>
-          <Text style={{fontSize:18,padding:10}}>Products for {selectedCategory}:</Text>
+        <ScrollView>
+          <Text style={{ fontSize: 18, padding: 10,textAlign:'center' }}>Products for {selectedCategory}:</Text>
           {products.map((product, index) => (
-            <View key={index}>
-              <Image source={{ uri: product.thumbnail }} style={{ width: 300, height: 200,borderRadius:20 }} />
-              <Text style={{fontSize:16,padding:10}}>Title: {product.title}</Text>
-              <Text style={{fontSize:16,paddingHorizontal:10}}>Price: ${product.price}</Text>
+            <View style={{justifyContent:"center",alignItems:"center"}} key={index}>
+              <Image source={{ uri: product.thumbnail }} style={{ width: 300, height: 200, borderRadius: 20 }} />
+              <Text style={{ fontSize: 16, padding: 10 }}>Title: {product.title}</Text>
+              <Text style={{ fontSize: 16, paddingHorizontal: 10 }}>Price: ${product.price}</Text>
               <View>
-              <TouchableOpacity
-              onPress={() => navigation.navigate('ProductDetail', { product: product })}
-            >
-              <Text style={styles.viewDetailsButton}>View Details</Text>
-            </TouchableOpacity>
-            </View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ProductDetail', { product: product })}
+                >
+                  <Text style={styles.viewDetailsButton}>View Details</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           ))}
-        </View>
+        </ScrollView>
       ) : null}
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
   },
   statistic: {
     marginVertical: 10,
-    marginLeft:50
+    marginLeft: 50
   },
   productContainer: {
     alignItems: 'center',
@@ -100,9 +101,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productImage: {
-    width:300,
-    height:200,
-    borderRadius:10,
+    width: 300,
+    height: 200,
+    borderRadius: 10,
   },
   productTitle: {
     fontSize: 16,
@@ -118,18 +119,18 @@ const styles = StyleSheet.create({
     color: 'white',
     textDecorationLine: 'underline',
     marginTop: 5,
-    backgroundColor:'blue',
-    paddingHorizontal:20,
-    paddingVertical:5,
-    borderRadius:10,
-    width:120,
-    marginLeft:10,
-    marginBottom:20
+    backgroundColor: 'blue',
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderRadius: 10,
+    width: 120,
+    marginLeft: 10,
+    marginBottom: 20
   },
-  pickerItem:{
-    borderWidth:1,
-    margin:10,
-    borderRadius:10
+  pickerItem: {
+    borderWidth: 1,
+    margin: 10,
+    borderRadius: 10
   }
 });
 

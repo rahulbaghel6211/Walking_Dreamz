@@ -10,6 +10,7 @@ const AllUsersScreen = () => {
     fetch('https://dummyjson.com/users')
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         setUsers(data.users); // Set the user data in state
         setIsLoading(false); // Set isLoading to false when data is fetched
       })

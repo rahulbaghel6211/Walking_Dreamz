@@ -29,7 +29,7 @@ const ProductManagementScreen = ({ navigation }) => {
   return (
     <View>
       <View style={styles.statistic}>
-        <Text>Number of all products: {statistics.total}</Text>
+        <Text style={{fontWeight:"800",fontSize:16}}>Number of all products: {statistics.total}</Text>
       </View>
       <ScrollView contentContainerStyle={styles.productContainer}>
         {statistics.products.map((product) => (
@@ -72,13 +72,14 @@ const styles = StyleSheet.create({
     borderRadius:10
   },
   productTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     marginTop: 5,
   },
   productPrice: {
-    fontSize: 14,
-    color: 'gray',
+    fontSize: 16,
+    color: 'red',
+    fontWeight:'900'
   },
   viewDetailsButton: {
     fontSize: 14,
@@ -88,7 +89,8 @@ const styles = StyleSheet.create({
     backgroundColor:'blue',
     paddingHorizontal:20,
     paddingVertical:5,
-    borderRadius:10
+    borderRadius:10,
+    fontWeight:'800'
   },
 });
 
